@@ -12,4 +12,5 @@ org.eclipse.debug.ui.inColor=185,222,10
 org.eclipse.debug.ui.outColor=244,244,244
 org.eclipse.debug.ui.save_dirty_editors_before_launch=always
 overriddenByCSS=,org.eclipse.debug.ui.Color,
+pref_state_memento.org.eclipse.debug.ui.DebugVieworg.eclipse.debug.ui.DebugView=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<DebugViewMemento org.eclipse.debug.ui.BREADCRUMB_DROPDOWN_AUTO_EXPAND\="false"/>
 preferredTargets=default\:default|
