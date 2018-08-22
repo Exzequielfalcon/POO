@@ -1,0 +1,130 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+
+
+public class Cuenta {
+	final static int MAXC=10;
+	final static int MAXmov=10;
+	private double monto=0;
+	private Movimiento mov[]= new Movimiento [MAXmov];
+	private Cliente clientes;
+	
+	public Cuenta(Cliente[] clientes) {
+		this.clientes = clientes;
+	}
+	public void setMov(Movimiento[] mov) {
+		this.mov = mov;
+	}
+
+
+	public double getMonto() {
+		return monto;
+	}
+
+
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
+
+	public Movimiento[] getMov() {
+		return mov;
+	}
+	public void setMov(Movimiento mov, int i) {
+		this.mov[i] = mov;
+		
+	}
+	public Cuenta(){
+		
+	}
+	
+	
+	public Cuenta(double monto, Cliente clientes2, Movimiento mov[]) {
+		
+	}
+
+
+	public static void IniMov(Movimiento mov[]){
+		for (int i=0;i<MAXmov;i++){
+			mov[i]= new Movimiento(0,0,"");
+		}
+	}
+	
+	public static int CrearCuenta (Cliente clientes[], Cuenta cuentas[], int n){
+		boolean encontrado=true;
+		String mon;
+		Movimiento mov[]= new Movimiento [10];
+		int i, aux=0;
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Desea crear una nueva cuenta? Ingrese Si o No");
+		mon = new String(entrada.readLine());
+		while(!((mon.equals("No")) || (mon.equals("no"))||(mon.equals("si")) || mon.equals("Si"))){
+			System.out.println("Desea crear una nueva cuenta? Ingrese Si o No");
+			mon = new String(entrada.readLine());
+		}
+		if ((mon.equals("si")) || mon.equals("Si")){
+			for (i=0; i<MAXC;i++){
+				if ((cuentas[i]==null)&&(encontrado==true)){
+					cuentas[i]= new Cuenta(0,clientes[i], mov);
+					encontrado=false;
+					aux=i;
+				}
+			}
+		}
+		else if ((mon.equals("No")) || (mon.equals("no"))){
+			
+		}
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+		return aux;
+}
+	
+	public static void MostrarCuenta (double monto, int dni, Cliente clientes[], int i){
+		clientes[i].mostrarcliente(clientes[i].getNombre(), clientes[i].getApellido(), clientes[i].getDni(), clientes[i].isMonotributista());
+		System.out.println("El monto es de: " +monto);
+	}
+	
+	
+	public static int BuscarCuentas(Cuenta cuentas[], Cliente clientes[]){
+		int acc=0,a=0, b=0;
+		int arr[] =  new int [MAXC];
+		
+		a=Cliente.EncontrarDni(clientes);  //posicion del cliente
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+			System.out.println(a);
+			for (int i=0;i<MAXC;i++){
+				if (cuentas[i]!=null){
+					System.out.println("asdfg");
+				
+					System.out.println("entro");
+					System.out.println("dni "+cuentas[i].clientes[a].getDni());
+				if (cuentas[i].clientes[a].getDni()==clientes[a].getDni()){ 
+					System.out.println("Usted tiene una cuenta en la posicion " + i);
+					arr[b]= i;			//posicion de cuenta
+					b++;
+				}
+				}
+			}
+		
+			System.out.println("QUe cuenta desea seleccionar?");
+			acc = new Integer(entrada.readLine());
+			
+			for (int d=0;d<b;d++){
+				while(cuentas[d].clientes[a].getDni()!=acc){
+					System.out.println("Esa cuenta no es suya, que cuenta desea seleccionar?");
+					acc = new Integer(entrada.readLine());
+				}
+			}
+			
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+		return acc;
+	}
+	
+}

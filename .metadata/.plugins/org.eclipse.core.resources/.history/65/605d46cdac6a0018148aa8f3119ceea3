@@ -1,0 +1,192 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+
+public class Movimiento {
+	final static int MAXmov=10;
+	final static int MAXC=10;
+	private double monto;
+	private int tipo;
+	private String operacion;
+	
+	public double getMonto() {
+		return monto;
+	}
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
+	public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+	public String getOperacion() {
+		return operacion;
+	}
+	public void setOperacion(String operacion) {
+		this.operacion = operacion;
+	}
+	
+	public Movimiento(double monto, int tipo, String operacion) {
+		this.monto = monto;
+		this.tipo = tipo;
+		this.operacion = operacion;
+	}
+	public static int cargatipo() {
+		int tipo=0;
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Ingrese \n 1 Si quiere depositar");
+		System.out.println("2 Si quiere transferir a otra cuenta");
+		System.out.println("3 Si quiere transferir a otra de sus cuentas");
+		System.out.println("4 Transferir a otra cuenta");
+		System.out.println("5 Retirar dinero");
+		System.out.println("0 para terminar");
+		tipo = new Integer(entrada.readLine());
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+		return tipo;
+	}
+	public static void Operacion (int tipo){
+		String operacion;
+		switch(tipo){
+		//case 1 : deposito() ; break;
+		//case 2 : TransfereciaDinero(); break;
+		//case 3 : Transferir(); break; 
+		}
+	}
+	public static double deposito (Cuenta cuentas[],int ncuenta, Cliente clientes[], int ncliente){
+		String type="Deposito";
+		int tipo=1;
+		double dep=0;
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Ingrese el monto que quiere depositar");
+		dep = new Double(entrada.readLine());
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+		dep=IIBB(dep, clientes, ncliente, cuentas, ncuenta);
+		dep=cuentas[ncuenta].getMonto()+dep;
+		
+		return dep;
+	}
+	public static double depositosincuenta (Cliente clientes[], Cuenta cuentas[]){
+		String type="Deposito";
+		int tipo=1;
+		double dep=0;
+		int nd;
+		try{
+		BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+		int encliente= Cliente.EncontrarDni(clientes);
+		if (encliente!=-1){
+		System.out.println("A que numero de cuenta desea depositar?");
+		nd = new Integer(entrada.readLine());
+		if (cuentas[nd]!=null){
+		System.out.println("Ingrese el monto que quiere depositar");		//Por aca tendria que poner los movimientos de la cuenta
+		dep = new Double(entrada.readLine());
+		dep=cuentas[nd].getMonto()+dep;
+				}
+		else System.out.println("La cuenta no existe");
+			}
+		else System.out.println("El cliente no existe");
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+		return dep; //Combinar con setMonto entonces el return que devuelve es igual al setmonto
+	}
+	public static void TransferenciaDinero(Cuenta cuentas[], Cliente clientes[]){
+		String type="Transferencia de dinero";
+		int nd=0;
+		double a=0;
+		try{
+			int ncliente=Cliente.EncontrarDni(clientes);
+			int ncuenta=Cuenta.BuscarCuentas(cuentas, clientes);
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("A que numero de cuenta desea depositar?");
+		nd = new Integer(entrada.readLine());
+		System.out.println("Cuanto desea depositar?");
+		System.out.println("Su saldo actual es "+ cuentas[ncuenta].getMonto());
+		a = new Integer(entrada.readLine());
+		while (a>cuentas[ncuenta].getMonto()){
+			System.out.println("Su saldo es insuficiente");
+			a = new Integer(entrada.readLine());
+		}
+		
+		double d= cuentas[ncuenta].getMonto();
+		
+		cuentas[nd].setMonto(IIBB(a, clientes, ncliente, cuentas, ncuenta));
+		cuentas[ncuenta].setMonto(d-a);
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+	}
+	
+	public static double IIBB(double a, Cliente clientes[], int ncliente, Cuenta cuentas[], int ncuenta){ //IIBB
+		int tipo=3;
+		String operacion="IIBB";
+		if ((clientes[ncliente]).isMonotributista()==true){
+			a=a-a*0.02;
+			System.out.println(a);
+			//Movi(cuentas)
+			return a;
+			
+		}
+		else{
+			return a;
+		}
+		
+	}
+	public static void retiro(Cliente clientes[], Cuenta cuentas[]){
+		double dinero=0;
+		try{
+			BufferedReader entrada= new BufferedReader(new InputStreamReader(System.in));
+			int encliente= Cliente.EncontrarDni(clientes);
+			if (encliente!=-1){
+				int acc=Cuenta.BuscarCuentas(cuentas, clientes);
+				System.out.println("Cuanto dinero desea retirar?");
+				System.out.println("Su saldo actual es "+ cuentas[acc].getMonto());
+				dinero = new Double(entrada.readLine());
+				while (dinero>cuentas[acc].getMonto()){
+					System.out.println("Su saldo es insuficiente, ingrese otro monto");
+					dinero = new Integer(entrada.readLine());
+				}
+				cuentas[acc].setMonto(cuentas[acc].getMonto()-dinero);
+				System.out.println("Su saldo actual es "+ cuentas[acc].getMonto());
+			}
+			
+		}
+		catch (Exception exc ) {
+			System.out.println( exc );			
+			}
+		
+	}
+	public static void Movi (Cuenta cuentas[], int ncuenta, String operacion, int tipo, double monto){
+		boolean encontrado=true;
+		/*for (int i=0; i<MAXmov; i++ ){
+			if ((encontrado==true)&&(cuentas[ncuenta].getMov()[i]==null)){
+				cuentas[ncuenta].getMov()[i]= new Movimiento(monto,tipo,operacion);
+			}*/
+		cuentas[ncuenta].setMov(new Movimiento(0,0,"jn"),5);
+		for (int a=0;a<MAXmov-1;a++){
+			cuentas[ncuenta].setMov(new Movimiento(0,0,"jn"),a);
+		}
+		
+		
+		for (int i=MAXmov-2;i>0;i--){
+			cuentas[ncuenta].setMov(cuentas[ncuenta].getMov()[i], i+1);
+			System.out.println(cuentas[ncuenta].getMov());a
+		}
+		
+		 cuentas[ncuenta].setMov(new Movimiento(monto,tipo,operacion), 0);
+		 System.out.println(cuentas[ncuenta].getMov()[0].getMonto());
+
+	}
+
+}

@@ -1,0 +1,53 @@
+public class ddr6 {
+
+	/*
+	 * 
+	 * 
+	 * 
+	 */
+
+	final static int MAX = 3;
+	final static int MAXrandom = MAX * MAX;
+
+	public static void main(String[] args) {
+		int b[][] = new int[MAX][MAX];
+		RandomNoRepeat(b);
+		ShowMatrix(b);
+	}
+
+	public static void RandomNoRepeat(int b[][]) {
+		boolean c = true;
+		for (int i = 0; i < MAX; i++) {
+			for (int j = 0; j < MAX; j++) {
+				b[i][j] = (int) (Math.random() * MAXrandom);
+				c = Check(b, b[i][j], i, j);
+				while (c == false) {
+					b[i][j] = (int) (Math.random() * MAXrandom);
+					c = Check(b, b[i][j], i, j);
+				}
+			}
+		}
+	}
+
+	public static boolean Check(int b[][], int numero, int h, int k) {
+		boolean c = true;
+		for (int i = 0; i < MAX; i++) {
+			for (int j = 0; j < MAX; j++) {
+				if ((numero == b[i][j]) && ((i != h) || (k != j))) {
+					c = false;
+				}
+			}
+		}
+		return c;
+	}
+
+	public static void ShowMatrix(int b[][]) {
+		for (int d = 0; d < MAX; d++) {
+			for (int i = 0; i < MAX; i++) {
+				System.out.print("\t" + b[d][i]);
+			}
+			System.out.println("");
+		}
+	}
+
+}
