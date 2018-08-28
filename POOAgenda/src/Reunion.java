@@ -1,8 +1,9 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class Reunion {
-	private final int N = 100;
+	private final int N = 10;
 	private int CantAsis = 0;
 	private String lugar;
 	private String tema;
@@ -22,9 +23,13 @@ public class Reunion {
 	}
 
 	public void AgregarAsistente(Contacto c) {
-		if (!this.asiste(c)) {
-			asistentes[CantAsis] = c;
-			CantAsis++;
+		if (CantAsis < N) {
+			if (!this.asiste(c)) {
+				asistentes[CantAsis] = c;
+				CantAsis++;
+			}
+		} else {
+			System.out.println("No se pudo agregar al asistente " + c);
 		}
 	}
 
@@ -40,6 +45,12 @@ public class Reunion {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Reunion  lugar=" + lugar + ", tema=" + tema + ", fecha=" + fecha + ", hora=" + hora + ", duracion="
+				+ duracion + " horas, asistentes=" + Arrays.toString(asistentes) + "]";
 	}
 
 }

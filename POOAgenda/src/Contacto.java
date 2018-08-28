@@ -39,4 +39,10 @@ public class Contacto {
 		System.out.println("Apellido: " + this.apellido);
 		System.out.println("Mail: " + this.mail);
 	}
+
+	@Override
+	public String toString() {
+		return "Contacto [nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + "]";
+	}
+
 }
