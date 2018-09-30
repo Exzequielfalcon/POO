@@ -8,8 +8,7 @@ public class partial {
 		int a;
 		char c;
 		try {
-			BufferedReader entrada = new BufferedReader(new InputStreamReader(
-					System.in));
+			BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("Ingrese un numero");
 			a = new Integer(entrada.readLine());
 			while (a != 0) {
@@ -17,7 +16,7 @@ public class partial {
 				c = (char) (entrada.readLine().charAt(0));
 				if ((c >= '0') && (c <= '9')) {
 					System.out.println("Digito");
-					if ((c % 3 == 0) && (c % 5 == 0)) {
+					if ((a % 3 == 0) && (a % 5 == 0)) {
 						System.out.println("Es multiplio de 3 y 5");
 					} else {
 						System.out.println("No es multiplo de 3 y 5");
@@ -33,10 +32,10 @@ public class partial {
 						break;
 					default:
 						System.out.println("otro");
+						break;
 					}
 				}
-				System.out
-						.println("Ingrese un numero diferente de 0 para continuar");
+				System.out.println("Ingrese un numero diferente de 0 para continuar");
 				a = new Integer(entrada.readLine());
 			}
 		} catch (Exception e) {
